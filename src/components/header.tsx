@@ -1,4 +1,5 @@
-import { FaCartShopping, FaLocationDot } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
+import { PiShoppingCartFill } from "react-icons/pi";
 
 import logo from "/coffee-delivery-logo.svg";
 
@@ -14,7 +15,7 @@ export function Header() {
         </div>
 
         <button className="py-2 px-3 bg-yellow-100 rounded-lg">
-          <FaCartShopping className="text-yellow-600 " />
+          <PiShoppingCartFill className="text-yellow-600 " />
         </button>
       </div>
     </header>
