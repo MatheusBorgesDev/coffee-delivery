@@ -6,6 +6,7 @@ import {
 } from "react-icons/pi";
 
 import homeImage from "/home-image.png";
+import { CoffeeCard } from "./components/coffeeCard";
 
 export function App() {
   return (
@@ -62,8 +63,25 @@ export function App() {
           </div>
         </section>
 
-        <section className="flex items-center gap-14 pt-24">
+        <section className="flex flex-col gap-14 pt-24">
           <h2 className="font-extrabold font-baloo text-4xl">Nossos cafés</h2>
+
+          <div className="grid grid-cols-4 gap-8">
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+            <CoffeeCard />
+          </div>
         </section>
       </main>
     </div>
