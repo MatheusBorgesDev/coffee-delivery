@@ -5,7 +5,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {}
 export function Button({ className, children, ...props }: ButtonProps) {
   return (
     <button
-      className={`px-5 py-4 w-full bg-zinc-200 text-sm uppercase rounded hover:bg-purple-300/50 transition border-2 border-transparent focus-within:bg-purple-300/50 focus-within:border-purple-400
+      className={`p-4 w-full flex items-center gap-3 bg-zinc-200 text-xs uppercase rounded-md hover:bg-purple-200/50 transition border border-transparent focus-within:bg-purple-200/50 focus-within:border-purple-600
         ${className}`}
       {...props}
     >
