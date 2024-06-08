@@ -4,28 +4,38 @@ import {
   PiShoppingCartSimpleFill,
 } from "react-icons/pi";
 
-import coffeeImage from "../assets/coffees/expresso.png";
+interface CoffeeCardProps {
+  imgUrl: string;
+  title: string;
+  tags: string[];
+  description: string;
+}
 
-export function CoffeeCard() {
+export function CoffeeCard({
+  imgUrl,
+  tags,
+  title,
+  description,
+}: CoffeeCardProps) {
   return (
     <div className="bg-zinc-200/40 px-6 py-5 rounded-lg rounded-tr-[2.5rem] rounded-bl-[2.5rem]">
       <div className="flex flex-col gap-3 items-center text-center">
-        <img src={coffeeImage} alt="" className="w-[7.5rem] -mt-10" />
+        <img src={imgUrl} alt="" className="w-[7.5rem] -mt-10" />
 
-        <div className="px-2 py-[2px] flex items-center bg-amber-200/50 rounded-full">
-          <span className="uppercase text-amber-600 text-[0.7rem] font-bold">
-            tradicional
-          </span>
+        <div className="flex gap-1">
+          {tags.map((tag) => (
+            <div className="px-2 py-[2px] flex items-center bg-amber-200/50 rounded-full">
+              <span className="uppercase text-amber-600 text-[0.7rem] font-bold">
+                {tag}
+              </span>
+            </div>
+          ))}
         </div>
 
         <div>
-          <h3 className="font-baloo font-bold text-xl mb-1 ">
-            Expresso Tradicional
-          </h3>
+          <h3 className="font-baloo font-bold text-xl mb-1 ">{title}</h3>
 
-          <p className="text-sm opacity-50">
-            O tradicional café feito com água quente e grãos moídos
-          </p>
+          <p className="text-xs opacity-50">{description}</p>
         </div>
       </div>
 
