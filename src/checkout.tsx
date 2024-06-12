@@ -1,3 +1,6 @@
+import firstCoffeeImg from "./assets/coffees/expresso-tradicional.png";
+import secondCoffeeImg from "./assets/coffees/latte.png";
+
 import {
   PiCurrencyDollar,
   PiMapPinLine,
@@ -7,6 +10,7 @@ import {
 } from "react-icons/pi";
 import { Input } from "./components/input";
 import { Button } from "./components/button";
+import { CoffeeCardCheckout } from "./components/coffeeCardCheckout";
 
 export function Checkout() {
   return (
@@ -47,7 +51,7 @@ export function Checkout() {
                     />
                     <label
                       htmlFor="complement"
-                      className="p-3 flex items-center justify-center rounded-r-sm bg-zinc-200/50 border border-l-0 border-zinc-300/50 "
+                      className="p-3 flex items-center justify-center rounded-r-sm bg-zinc-200/30 border border-l-0 border-zinc-300/50 "
                     >
                       <span className="italic text-zinc-500/80 text-sm">
                         Opcional
@@ -105,9 +109,18 @@ export function Checkout() {
 
           <div className="w-[28rem] p-10 bg-zinc-100 rounded-lg rounded-tr-[2.5rem] rounded-bl-[2.5rem]">
             <div className="flex flex-col gap-6">
-              <div>
-                <div className="border-b pb-6">Café com quantidade e preço</div>
-                <div className="border-b pb-6">Café com quantidade e preço</div>
+              <div className="flex flex-col gap-6">
+                <CoffeeCardCheckout
+                  imgUrl={firstCoffeeImg}
+                  title="Expresso Tradicional"
+                  quantity="1"
+                />
+
+                <CoffeeCardCheckout
+                  imgUrl={secondCoffeeImg}
+                  title="Latte"
+                  quantity="1"
+                />
               </div>
 
               <div className="flex flex-col gap-3">
