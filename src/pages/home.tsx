@@ -71,11 +71,12 @@ export function Home() {
           <div className="grid grid-cols-4 gap-8 mb-24">
             {coffeesData.map((coffee) => (
               <CoffeeCard
-                key={coffee.title}
-                imgUrl={coffee.imgUrl}
+                key={coffee.id}
+                id={coffee.id}
                 title={coffee.title}
                 tags={coffee.tags}
                 description={coffee.description}
+                price={coffee.price}
               />
             ))}
           </div>
