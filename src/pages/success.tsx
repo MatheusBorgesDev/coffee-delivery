@@ -4,7 +4,7 @@ import {
   PiTimerFill,
 } from "react-icons/pi";
 
-import successImg from "../public/success-image.png";
+import successImg from "../../public/success-image.png";
 
 export function Success() {
   return (

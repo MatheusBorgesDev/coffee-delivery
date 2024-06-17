@@ -1,5 +1,8 @@
-import firstCoffeeImg from "./assets/coffees/expresso-tradicional.png";
-import secondCoffeeImg from "./assets/coffees/latte.png";
+import { Button } from "../components/button";
+import { CoffeeCardCheckout } from "../components/coffeeCardCheckout";
+import { Input } from "../components/input";
+import firstCoffeeImg from "../assets/coffees/expresso-tradicional.png";
+import secondCoffeeImg from "../assets/coffees/latte.png";
 
 import {
   PiCurrencyDollar,
@@ -8,9 +11,6 @@ import {
   PiBank,
   PiMoney,
 } from "react-icons/pi";
-import { Input } from "./components/input";
-import { Button } from "./components/button";
-import { CoffeeCardCheckout } from "./components/coffeeCardCheckout";
 
 export function Checkout() {
   return (

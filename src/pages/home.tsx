@@ -6,10 +6,11 @@ import {
 } from "react-icons/pi";
 
 import homeImage from "/home-image.png";
-import { CoffeeCard } from "./components/coffeeCard";
-import { coffeesData } from "./constants/coffeesData";
 
-export function App() {
+import { CoffeeCard } from "../components/coffeeCard";
+import { coffeesData } from "../constants/coffeesData";
+
+export function Home() {
   return (
     <div className="w-[70rem] mx-auto px-4">
       <main>
