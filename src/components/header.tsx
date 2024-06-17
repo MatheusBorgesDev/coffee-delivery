@@ -14,8 +14,8 @@ export function Header() {
           <p className="text-purple-700">Lages, SC</p>
         </div>
 
-        <button className="py-2 px-3 bg-yellow-100 rounded-lg">
-          <PiShoppingCartFill className="text-yellow-600 " />
+        <button className="p-2 bg-yellow-200 rounded-lg">
+          <PiShoppingCartFill size={20} className="text-yellow-600" />
         </button>
       </div>
     </header>
