@@ -1,11 +1,25 @@
+import { useContext } from "react";
+import { CartContext } from "../contexts/cartContext";
+
 import { PiMinusBold, PiPlusBold, PiTrash } from "react-icons/pi";
+
+import { CoffeeOnCart } from "../app";
 
 import { Coffee } from "../constants/coffeesData";
 
 import { Button } from "./button";
 
 export function CoffeeCardCheckout({ imgUrl, title, price }: Coffee) {
-  console.log(imgUrl);
+  const { coffeesOnCart, setCoffeesOnCart } = useContext(CartContext);
+
+  function handleRemoveCoffeeOfCart() {
+    const updatedCoffeesOnCart = coffeesOnCart.filter(
+      (coffee: CoffeeOnCart) => coffee.title !== title
+    );
+
+    setCoffeesOnCart(updatedCoffeesOnCart);
+  }
+
   return (
     <div className="flex gap-5 border-b pb-6">
       <img
@@ -34,7 +48,7 @@ export function CoffeeCardCheckout({ imgUrl, title, price }: Coffee) {
           </div>
 
           <div>
-            <Button className="h-8">
+            <Button onClick={handleRemoveCoffeeOfCart} className="h-8">
               <PiTrash size={16} className="text-purple-700" />
               Remover
             </Button>
