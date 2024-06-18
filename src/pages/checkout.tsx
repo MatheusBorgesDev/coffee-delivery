@@ -19,6 +19,19 @@ import { Input } from "../components/input";
 export function Checkout() {
   const { coffeesAmount, coffeesOnCart } = useContext(CartContext);
 
+  const itemsTotalPrice = coffeesOnCart.reduce(
+    (total: number, coffee: { price: string; quantity: number }) => {
+      const coffeeTotalPrice =
+        parseFloat(coffee.price.replace(",", ".")) * coffee.quantity;
+      return total + coffeeTotalPrice;
+    },
+    0
+  );
+
+  const deliveryCost = 3.5;
+
+  const cartTotalPrice = itemsTotalPrice + deliveryCost;
+
   return (
     <div className="w-[70rem] mx-auto px-4">
       <main className="flex justify-between gap-8 mt-10">
@@ -129,18 +142,18 @@ export function Checkout() {
 
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between text-sm">
-                  <span>Total de itens</span>
-                  <span>R$ 29,70</span>
+                  <span>Total dos itens</span>
+                  <span>R$ {itemsTotalPrice.toFixed(2)}</span>
                 </div>
 
                 <div className="flex justify-between text-sm">
                   <span>Entrega</span>
-                  <span>R$ 3,50</span>
+                  <span>R$ {deliveryCost.toFixed(2)}</span>
                 </div>
 
                 <div className="flex justify-between font-bold text-lg text-black">
                   <span>Total</span>
-                  <span>R$ 33,20</span>
+                  <span>R$ {cartTotalPrice.toFixed(2)}</span>
                 </div>
               </div>
 
