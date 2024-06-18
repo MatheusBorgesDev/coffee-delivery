@@ -73,6 +73,7 @@ export function Home() {
               <CoffeeCard
                 key={coffee.id}
                 id={coffee.id}
+                imgUrl={coffee.imgUrl}
                 title={coffee.title}
                 tags={coffee.tags}
                 description={coffee.description}
