@@ -1,22 +1,32 @@
 export interface Coffee {
   id: string;
+  imgUrl: string;
   title: string;
-  tags: string[];
-  description: string;
+  tags?: string[];
+  description?: string;
   price: string;
 }
 
-const coffeesImgUrl = "../src/assets/coffees/";
+const coffeesImgUrl = "src/assets/coffees/";
+
+function createIdAndImgUrl(name: string): { id: string; imgUrl: string } {
+  return {
+    id: name,
+    imgUrl: `${coffeesImgUrl}${name}.png`,
+  };
+}
 
 function createCoffee(
-  imgUrl: string,
+  name: string,
   title: string,
   tags: string[],
   description: string,
   price: string
 ): Coffee {
+  const { id, imgUrl } = createIdAndImgUrl(name);
   return {
-    id: `${coffeesImgUrl}${imgUrl}.png`,
+    id,
+    imgUrl,
     title,
     tags,
     description,
