@@ -157,7 +157,10 @@ export function Checkout() {
                 </div>
               </div>
 
-              <button className="p-4 w-full flex items-center justify-center rounded-md bg-yellow-500 text-sm text-white font-medium uppercase hover:bg-yellow-500/70 transition">
+              <button
+                disabled={!coffeesAmount}
+                className="p-4 w-full flex items-center justify-center rounded-md bg-yellow-500 text-sm text-white font-medium uppercase hover:bg-yellow-500/70 transition disabled:cursor-not-allowed"
+              >
                 Confirmar pedido
               </button>
             </div>
