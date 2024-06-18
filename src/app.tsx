@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CartContext } from "./contexts/cartContext";
 
@@ -15,24 +15,16 @@ export interface CoffeeOnCart {
 }
 
 export function App() {
-  const [coffeesOnCart, setCoffeesOnCart] = useState<CoffeeOnCart[]>([
-    {
-      id: "expresso-tradicional",
-      title: "Expresso Tradicional",
-      imgUrl: "src/assets/coffees/expresso-tradicional.png",
-      quantity: 1,
-      price: "9,90",
-    },
-    {
-      id: "latte",
-      title: "Latte",
-      imgUrl: "src/assets/coffees/latte.png",
-      quantity: 1,
-      price: "9,90",
-    },
-  ]);
+  const [coffeesOnCart, setCoffeesOnCart] = useState<CoffeeOnCart[]>(() => {
+    const savedCart = localStorage.getItem("coffeesOnCart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
   const coffeesAmount = coffeesOnCart.length;
+
+  useEffect(() => {
+    localStorage.setItem("coffeesOnCart", JSON.stringify(coffeesOnCart));
+  }, [coffeesOnCart]);
 
   return (
     <CartContext.Provider

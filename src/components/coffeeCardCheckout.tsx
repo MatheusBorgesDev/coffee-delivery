@@ -1,30 +1,23 @@
 import { PiMinusBold, PiPlusBold, PiTrash } from "react-icons/pi";
 
+import { Coffee } from "../constants/coffeesData";
+
 import { Button } from "./button";
 
-interface CoffeeCardCheckoutProps {
-  imgUrl: string;
-  title: string;
-  quantity: string;
-}
-
-export function CoffeeCardCheckout({
-  imgUrl,
-  title,
-  quantity,
-}: CoffeeCardCheckoutProps) {
+export function CoffeeCardCheckout({ imgUrl, title, price }: Coffee) {
+  console.log(imgUrl);
   return (
     <div className="flex gap-5 border-b pb-6">
       <img
         src={imgUrl}
-        alt="Foto de uma xícara de cappucino"
+        alt={`Foto de uma xícara de ${title}`}
         className="w-16 h-16"
       />
 
       <div className="w-full flex flex-col gap-2">
         <div className="flex justify-between">
           <span>{title}</span>
-          <span className="font-bold">R$ 9,90</span>
+          <span className="font-bold">R$ {price}</span>
         </div>
 
         <div className="flex gap-2">
@@ -33,7 +26,7 @@ export function CoffeeCardCheckout({
               <PiMinusBold />
             </button>
 
-            <span className="font-medium">{quantity}</span>
+            <span className="font-medium">1</span>
 
             <button className="text-purple-700">
               <PiPlusBold />

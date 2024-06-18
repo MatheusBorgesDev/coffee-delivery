@@ -1,8 +1,8 @@
-import { Button } from "../components/button";
-import { CoffeeCardCheckout } from "../components/coffeeCardCheckout";
-import { Input } from "../components/input";
-import firstCoffeeImg from "../assets/coffees/expresso-tradicional.png";
-import secondCoffeeImg from "../assets/coffees/latte.png";
+import { useContext } from "react";
+
+import { CartContext } from "../contexts/cartContext";
+
+import { CoffeeOnCart } from "../app";
 
 import {
   PiCurrencyDollar,
@@ -12,7 +12,13 @@ import {
   PiMoney,
 } from "react-icons/pi";
 
+import { Button } from "../components/button";
+import { CoffeeCardCheckout } from "../components/coffeeCardCheckout";
+import { Input } from "../components/input";
+
 export function Checkout() {
+  const { coffeesAmount, coffeesOnCart } = useContext(CartContext);
+
   return (
     <div className="w-[70rem] mx-auto px-4">
       <main className="flex justify-between gap-8 mt-10">
@@ -104,23 +110,21 @@ export function Checkout() {
 
         <div className="flex flex-col gap-4 ">
           <h2 className="font-baloo font-bold text-lg text-black">
-            Cafés selecionados
+            Cafés selecionados ({coffeesAmount})
           </h2>
 
           <div className="w-[28rem] p-10 bg-zinc-100 rounded-lg rounded-tr-[2.5rem] rounded-bl-[2.5rem]">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-6">
-                <CoffeeCardCheckout
-                  imgUrl={firstCoffeeImg}
-                  title="Expresso Tradicional"
-                  quantity="1"
-                />
-
-                <CoffeeCardCheckout
-                  imgUrl={secondCoffeeImg}
-                  title="Latte"
-                  quantity="1"
-                />
+                {coffeesOnCart.map((coffee: CoffeeOnCart) => (
+                  <CoffeeCardCheckout
+                    key={coffee.id}
+                    id={coffee.id}
+                    imgUrl={coffee.imgUrl}
+                    title={coffee.title}
+                    price={coffee.price}
+                  />
+                ))}
               </div>
 
               <div className="flex flex-col gap-3">
