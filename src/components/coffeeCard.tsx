@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
+import { CartContext } from "../contexts/cartContext";
+
 import {
   PiMinusBold,
   PiPlusBold,
   PiShoppingCartSimpleFill,
 } from "react-icons/pi";
 import { Coffee } from "../constants/coffeesData";
-import { CartContext } from "../contexts/cartContext";
 
 export function CoffeeCard({
   imgUrl,
@@ -30,15 +31,28 @@ export function CoffeeCard({
   }
 
   function handleAddCoffeeToCart() {
-    const newCoffeeToCart = {
-      id: title,
-      title: title,
-      imgUrl: imgUrl,
-      quantity: quantity,
-      price: price,
-    };
+    const existingCoffee = coffeesOnCart.find(
+      (coffee: { title: string }) => coffee.title === title
+    );
 
-    setCoffeesOnCart([...coffeesOnCart, newCoffeeToCart]);
+    if (existingCoffee) {
+      const updatedCoffeesOnCart = coffeesOnCart.map(
+        (coffee: { title: string; quantity: number }) =>
+          coffee.title === title
+            ? { ...coffee, quantity: coffee.quantity + quantity }
+            : coffee
+      );
+      setCoffeesOnCart(updatedCoffeesOnCart);
+    } else {
+      const newCoffeeToCart = {
+        id: title,
+        title: title,
+        imgUrl: imgUrl,
+        quantity: quantity,
+        price: price,
+      };
+      setCoffeesOnCart([...coffeesOnCart, newCoffeeToCart]);
+    }
   }
 
   return (

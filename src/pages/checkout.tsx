@@ -1,5 +1,4 @@
 import { useContext } from "react";
-
 import { CartContext } from "../contexts/cartContext";
 
 import { CoffeeOnCart } from "../app";
