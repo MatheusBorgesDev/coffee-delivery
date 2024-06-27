@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "../contexts/cartContext";
 
-import { CoffeeOnCart } from "../app";
-
 import {
   PiCurrencyDollar,
   PiMapPinLine,
@@ -18,17 +16,13 @@ import { Input } from "../components/input";
 export function Checkout() {
   const { coffeesAmount, coffeesOnCart } = useContext(CartContext);
 
-  const itemsTotalPrice = coffeesOnCart.reduce(
-    (total: number, coffee: { price: string; quantity: number }) => {
-      const coffeeTotalPrice =
-        parseFloat(coffee.price.replace(",", ".")) * coffee.quantity;
-      return total + coffeeTotalPrice;
-    },
-    0
-  );
+  const itemsTotalPrice = coffeesOnCart.reduce((total, coffee) => {
+    const coffeeTotalPrice =
+      parseFloat(coffee.price.replace(",", ".")) * coffee.quantity;
+    return total + coffeeTotalPrice;
+  }, 0);
 
   const deliveryCost = 3.5;
-
   const cartTotalPrice = itemsTotalPrice + deliveryCost;
 
   return (
@@ -55,12 +49,10 @@ export function Checkout() {
                 <div>
                   <Input placeholder="CEP" />
                 </div>
-
                 <Input placeholder="Rua" />
 
                 <div className="flex gap-4">
                   <Input placeholder="Número" />
-
                   <div className="flex flex-1">
                     <Input
                       id="complement"
@@ -69,7 +61,7 @@ export function Checkout() {
                     />
                     <label
                       htmlFor="complement"
-                      className="p-3 flex items-center justify-center rounded-r-sm bg-zinc-200/30 border border-l-0 border-zinc-300/50 "
+                      className="p-3 flex items-center justify-center rounded-r-sm bg-zinc-200/30 border border-l-0 border-zinc-300/50"
                     >
                       <span className="italic text-zinc-500/80 text-sm">
                         Opcional
@@ -80,9 +72,7 @@ export function Checkout() {
 
                 <div className="flex gap-4">
                   <Input placeholder="Bairro" />
-
                   <Input placeholder="Cidade" className="flex-1" />
-
                   <Input placeholder="UF" className="w-14" maxLength={2} />
                 </div>
               </form>
@@ -105,12 +95,10 @@ export function Checkout() {
                   <PiCreditCard size={17} className="text-purple-600" />
                   <span>Cartão de crédito</span>
                 </Button>
-
                 <Button className="bg-zinc-200 ">
                   <PiBank size={17} className="text-purple-600" />
                   <span>Cartão de débito</span>
                 </Button>
-
                 <Button className="bg-zinc-200 ">
                   <PiMoney size={17} className="text-purple-600" />
                   <span>Dinheiro</span>
@@ -128,14 +116,8 @@ export function Checkout() {
           <div className="w-[28rem] p-10 bg-zinc-100 rounded-lg rounded-tr-[2.5rem] rounded-bl-[2.5rem]">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-6">
-                {coffeesOnCart.map((coffee: CoffeeOnCart) => (
-                  <CoffeeCardCheckout
-                    key={coffee.id}
-                    id={coffee.id}
-                    imgUrl={coffee.imgUrl}
-                    title={coffee.title}
-                    price={coffee.price}
-                  />
+                {coffeesOnCart.map((coffee) => (
+                  <CoffeeCardCheckout key={coffee.id} {...coffee} />
                 ))}
               </div>
 
@@ -144,12 +126,10 @@ export function Checkout() {
                   <span>Total dos itens</span>
                   <span>R$ {itemsTotalPrice.toFixed(2)}</span>
                 </div>
-
                 <div className="flex justify-between text-sm">
                   <span>Entrega</span>
                   <span>R$ {deliveryCost.toFixed(2)}</span>
                 </div>
-
                 <div className="flex justify-between font-bold text-lg text-black">
                   <span>Total</span>
                   <span>R$ {cartTotalPrice.toFixed(2)}</span>
@@ -157,8 +137,8 @@ export function Checkout() {
               </div>
 
               <button
+                className="p-4 w-full flex items-center justify-center rounded-md bg-yellow-500 text-sm text-white font-medium uppercase hover:bg-yellow-500/70 transition"
                 disabled={!coffeesAmount}
-                className="p-4 w-full flex items-center justify-center rounded-md bg-yellow-500 text-sm text-white font-medium uppercase hover:bg-yellow-500/70 transition disabled:cursor-not-allowed"
               >
                 Confirmar pedido
               </button>

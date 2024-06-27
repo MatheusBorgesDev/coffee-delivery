@@ -8,42 +8,28 @@ import { Coffee } from "../constants/coffeesData";
 import { Button } from "./button";
 
 export function CoffeeCardCheckout({ imgUrl, price, title }: Coffee) {
-  const { coffeesOnCart, setCoffeesOnCart } = useContext(CartContext);
+  const { coffeesOnCart, removeCoffeeFromCart, updateCoffeeQuantity } =
+    useContext(CartContext);
 
-  function handleRemoveCoffeeOfCart() {
-    const updatedCoffeesOnCart = coffeesOnCart.filter(
-      (item: { title: string }) => item.title !== title
-    );
-    setCoffeesOnCart(updatedCoffeesOnCart);
-  }
+  const coffeeInCart = coffeesOnCart.find((item) => item.title === title);
 
   function handleIncreaseQuantity() {
-    const updatedCoffeesOnCart = coffeesOnCart.map(
-      (item: { title: string; quantity: number }) => {
-        if (item.title === title) {
-          return { ...item, quantity: item.quantity + 1 };
-        }
-        return item;
-      }
-    );
-    setCoffeesOnCart(updatedCoffeesOnCart);
+    if (coffeeInCart) {
+      updateCoffeeQuantity(coffeeInCart.id, coffeeInCart.quantity + 1);
+    }
   }
 
   function handleDecreaseQuantity() {
-    const updatedCoffeesOnCart = coffeesOnCart.map(
-      (item: { title: string; quantity: number }) => {
-        if (item.title === title && item.quantity > 1) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-        return item;
-      }
-    );
-    setCoffeesOnCart(updatedCoffeesOnCart);
+    if (coffeeInCart && coffeeInCart.quantity > 1) {
+      updateCoffeeQuantity(coffeeInCart.id, coffeeInCart.quantity - 1);
+    }
   }
 
-  const coffeeInCart = coffeesOnCart.find(
-    (item: { title: string }) => item.title === title
-  );
+  function handleRemoveCoffeeOfCart() {
+    if (coffeeInCart) {
+      removeCoffeeFromCart(coffeeInCart.id);
+    }
+  }
 
   const total = coffeeInCart
     ? parseFloat(price.replace(",", ".")) * coffeeInCart.quantity
@@ -56,13 +42,11 @@ export function CoffeeCardCheckout({ imgUrl, price, title }: Coffee) {
         alt={`Foto de uma xícara de ${title}`}
         className="w-16 h-16"
       />
-
       <div className="w-full flex flex-col gap-2">
         <div className="flex justify-between">
           <span>{title}</span>
           <span className="font-bold">R$ {total.toFixed(2)}</span>
         </div>
-
         <div className="flex gap-2">
           <div className="p-2 h-8 flex items-center gap-2 bg-zinc-200 rounded-md">
             <button
@@ -71,9 +55,7 @@ export function CoffeeCardCheckout({ imgUrl, price, title }: Coffee) {
             >
               <PiMinusBold />
             </button>
-
             <span className="font-medium">{coffeeInCart?.quantity}</span>
-
             <button
               onClick={handleIncreaseQuantity}
               className="text-purple-700"
@@ -81,7 +63,6 @@ export function CoffeeCardCheckout({ imgUrl, price, title }: Coffee) {
               <PiPlusBold />
             </button>
           </div>
-
           <div>
             <Button onClick={handleRemoveCoffeeOfCart} className="h-8">
               <PiTrash size={16} className="text-purple-700" />
