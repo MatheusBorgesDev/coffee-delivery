@@ -6,7 +6,26 @@ import {
 
 import successImg from "../../public/success-image.png";
 
+interface OrderData {
+  data: {
+    cep: string;
+    street: string;
+    address_number: string;
+    complement?: string;
+    neighborhood: string;
+    city: string;
+    uf: string;
+  };
+  paymentMethod: string;
+}
+
 export function Success() {
+  const orderDataString = localStorage.getItem("orderData");
+  const orderData: OrderData | null = orderDataString
+    ? JSON.parse(orderDataString)
+    : null;
+  const { data, paymentMethod } = orderData || {};
+
   return (
     <div className="w-[70rem] mx-auto px-4">
       <main className="mt-24 flex flex-col gap-10">
@@ -29,9 +48,9 @@ export function Success() {
                 <p>
                   Entrega em{" "}
                   <span className="font-bold">
-                    Rua João Daniel Martinelli, 102,
+                    {data?.street}, {data?.address_number},
                   </span>{" "}
-                  Farrapos - Porto Alegre, RS
+                  {data?.neighborhood} - {data?.city}, {data?.uf}
                 </p>
               </div>
 
@@ -51,7 +70,13 @@ export function Success() {
                 </div>
                 <p>
                   Pagamento na entrega <br />
-                  <span className="font-bold">Cartão de crédito</span>
+                  <span className="font-bold">
+                    {paymentMethod === "credit"
+                      ? "Cartão de crédito"
+                      : paymentMethod === "debit"
+                      ? "Cartão de débito"
+                      : "Dinheiro"}
+                  </span>
                 </p>
               </div>
             </div>
