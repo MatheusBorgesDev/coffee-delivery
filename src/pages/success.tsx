@@ -1,9 +1,12 @@
+import { useContext, useEffect, useState } from "react";
+
+import { CartContext } from "../contexts/cartContext";
+
 import {
   PiCurrencyDollarBold,
   PiMapPinFill,
   PiTimerFill,
 } from "react-icons/pi";
-
 import successImg from "../../public/success-image.png";
 
 interface OrderData {
@@ -20,11 +23,40 @@ interface OrderData {
 }
 
 export function Success() {
-  const orderDataString = localStorage.getItem("orderData");
-  const orderData: OrderData | null = orderDataString
-    ? JSON.parse(orderDataString)
-    : null;
+  const { clearCart } = useContext(CartContext);
+
+  const [orderData, setOrderData] = useState<OrderData | null>(null);
+
+  useEffect(() => {
+    const orderDataString = localStorage.getItem("orderData");
+
+    if (orderDataString) {
+      const parsedOrderData = JSON.parse(orderDataString) as OrderData;
+
+      setOrderData(parsedOrderData);
+
+      clearCart();
+      localStorage.removeItem("orderData");
+    }
+  }, [clearCart]);
+
   const { data, paymentMethod } = orderData || {};
+
+  if (!orderData || !data || !paymentMethod) {
+    return (
+      <div className="w-[70rem] mx-auto px-4">
+        <main className="mt-24 flex flex-col gap-10">
+          <h1 className="text-3xl text-yellow-600 font-baloo font-bold">
+            Pedido não encontrado
+          </h1>
+          <p className="text-lg font-medium">
+            Não encontramos os dados do seu pedido. Por favor, verifique e tente
+            novamente.
+          </p>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="w-[70rem] mx-auto px-4">
@@ -48,9 +80,9 @@ export function Success() {
                 <p>
                   Entrega em{" "}
                   <span className="font-bold">
-                    {data?.street}, {data?.address_number},
+                    {data.street}, {data.address_number}
                   </span>{" "}
-                  {data?.neighborhood} - {data?.city}, {data?.uf}
+                  {data.neighborhood} - {data.city}, {data.uf}
                 </p>
               </div>
 
