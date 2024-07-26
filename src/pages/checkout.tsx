@@ -15,6 +15,7 @@ import {
   PiBank,
   PiMoney,
 } from "react-icons/pi";
+import { FiAlertTriangle } from "react-icons/fi";
 
 import { Button } from "../components/button";
 import { CoffeeCardCheckout } from "../components/coffeeCardCheckout";
@@ -230,9 +231,19 @@ export function Checkout() {
             <div className="w-[28rem] p-10 bg-zinc-100 rounded-lg rounded-tr-[2.5rem] rounded-bl-[2.5rem]">
               <div className="flex flex-col gap-6">
                 <div className="flex flex-col gap-6">
-                  {coffeesOnCart.map((coffee) => (
-                    <CoffeeCardCheckout key={coffee.id} {...coffee} />
-                  ))}
+                  {coffeesAmount === 0 ? (
+                    <div className="flex flex-col gap-2 items-center justify-center">
+                      <FiAlertTriangle size={40} className="text-yellow-500" />
+
+                      <span className="font-semibold">
+                        Ainda não há produtos no seu pedido
+                      </span>
+                    </div>
+                  ) : (
+                    coffeesOnCart.map((coffee) => (
+                      <CoffeeCardCheckout key={coffee.id} {...coffee} />
+                    ))
+                  )}
                 </div>
 
                 <div className="flex flex-col gap-3">
